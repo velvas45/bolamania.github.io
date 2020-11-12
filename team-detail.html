@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bola Mania</title>
+  <meta name="description" content="Website PWA for info bola" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link rel="stylesheet" href="css/materialize.min.css" />
+  <!-- Import Bootstrap css -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+
+  <!-- style.css -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- manifest.json -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#00897B" />
+</head>
+
+<body>
+  <!-- Navigasi -->
+  <nav class="indigo lighten-5 header-navigation-team" role="navigation">
+    <div class="nav-wrapper container">
+      <a href="./index.html" class="brand-logo center img-fluid" id="logo-container"><img src="img/logo_2.png"
+          alt="logo Premier League" height="58" width="58">
+        <span class="teal-text text-darken-4"> BolaMania</span>
+      </a>
+      <a href="./index.html" class="sidenav-trigger" data-target="nav-mobile">
+        <i class="material-icons">arrow_back</i>
+      </a>
+
+      <ul class="topnav right hide-on-med-and-down"></ul>
+      <ul class="sidenav" id="nav-mobile"></ul>
+    </div>
+  </nav>
+  <!-- Akhir Navigasi -->
+
+  <div id="body-content"></div>
+
+
+  <!-- info pemain -->
+  <div id="accordion2">
+    <div class="card">
+      <div class="card-header" id="infoPemainTeam">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#infoPemain" aria-expanded="false"
+            aria-controls="infoPemain">
+            <i class="large material-icons">info_outline</i> Info Pemain
+          </button>
+        </h5>
+      </div>
+
+      <div id="infoPemain" class="collapse" aria-labelledby="infoPemainTeam" data-parent="#accordion2">
+        <div class="card-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col s12">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <caption>List of Squad</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Position</th>
+                        <th scope="col">Nationality</th>
+                        <th scope="col">Role</th>
+                      </tr>
+                    </thead>
+                    <tbody id="squadTeam">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- floating action btn -->
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large blue" id="save">
+      <i class="large material-icons">save</i>
+    </a>
+  </div>
+
+  <!-- floating action btn -->
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large red" id="delete">
+      <i class="large material-icons">delete</i>
+    </a>
+  </div>
+
+
+
+  <!-- footer -->
+  <footer>
+    <div class="footer-copyright blue lighten-3 white-text">
+      <div class="container center-align">
+        © 2020 Copyright Helmi Agustiawan
+      </div>
+    </div>
+  </footer>
+
+  <script type="text/javascript" src="https://unpkg.com/snarkdown@1.0.2/dist/snarkdown.umd.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="js/materialize.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/api.js"></script>
+  <!-- idb.js -->
+  <script src="js/idb.js"></script>
+  <!-- db.js -->
+  <script src="js/db.js"></script>
+  <script>
+    // Register Service Worker
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/sw.js")
+          .then(() => {
+            console.log("Pendaftaran serviceWorker berhasil");
+          })
+          .catch(() => {
+            console.log("Pendaftaran serviceWorker Gagal");
+          });
+      });
+    } else {
+      console.log("serviceWorker belum didukung browser ini.");
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+      let item;
+      let data;
+      const urlParams = new URLSearchParams(window.location.search);
+      const isFromSavedTeam = urlParams.get("saved");
+      const getId = urlParams.get('id');
+      const save = document.getElementById("save");
+      const deleted = document.getElementById("delete");
+
+      // pengecekan tombol klik save
+      if (isFromSavedTeam) {
+        // hide tombol
+        save.style.display = 'none';
+        data = getSavedTeamBolaById();
+      } else {
+        item = getTeamBolaById();
+        deleted.style.display = 'none';
+      }
+
+      save.onclick = () => {
+        console.log("tombol berfungsi");
+        item.then(team => {
+          saveTeamFavorite(team);
+        })
+      }
+
+      deleted.onclick = () => {
+        M.toast({html: 'Team Favorite Terhapus',classes: 'amber lighten-5 blue-text text-lighten-3'})
+        deleteById(getId);
+        window.location.href = "index.html";
+      }
+    });
+  </script>
+</body>
+
+</html>

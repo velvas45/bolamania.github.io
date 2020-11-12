@@ -1,0 +1,22 @@
+{
+  "name": "bolamania",
+  "version": "1.0.0",
+  "description": "pwa untuk aplikasi info bola",
+  "main": "push.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/velvas45/bola_mania.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/velvas45/bola_mania/issues"
+  },
+  "homepage": "https://github.com/velvas45/bola_mania#readme",
+  "dependencies": {
+    "web-push": "^3.4.4"
+  }
+}

@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+}
+
+*:hover,
+*:focus {
+  text-decoration: none !important;
+}
+
+.header-navigation {
+  box-shadow: none;
+  position: absolute;
+}
+
+.header-navigation .brand-logo {
+  color: #bbdefb;
+}
+
+.header-navigation .sidebar {
+  position: static;
+}
+
+.header-navigation a:hover {
+  color: #40c4ff;
+}
+
+.jumbo-home {
+  background-image: url(../img/jumbotron.jpeg);
+  background-size: cover;
+  background-position: center center;
+  /* min-height: 500px; */
+  height: 80vh;
+  /* transform: translateY(-20px); */
+  border-radius: 20px;
+}
+
+.jumbo-home .container {
+  margin-top: 50px;
+  padding: 50px;
+  color: #1ce0e0;
+}
+
+.jumbo-home h1 {
+  font-size: 40px;
+  font-weight: 300;
+  margin: 0px 0px 30px 0px;
+  line-height: 120%;
+  font-family: "Open sans", sans-serif;
+}
+
+.jumbo-home p {
+  font-size: 20px;
+  color: #fff;
+}
+
+/* team bola */
+.team-bola .card {
+  padding: 8px 15px;
+  transition: all 0.5s;
+}
+
+.team-bola .card:hover {
+  transform: scale(1.1);
+  background-color: #0091ea;
+  box-shadow: 2px 2px 6px #999, -2px -2px 5px #999;
+}
+
+.team-bola .card-image span {
+  color: #000 !important;
+  font-size: 100%;
+}
+
+/* jumbotron team-detail */
+.jumbo-team {
+  background-image: url(../img/stadium_3.jpg);
+  background-size: cover;
+  background-position: center center;
+  /* min-height: 500px; */
+  height: 70vh;
+}
+
+.jumbo-team h1 {
+  font-size: 200%;
+  color: #fff;
+}
+
+.collap-info-team {
+  border: none;
+}
+
+.footer-copyright.blue.lighten-3.white-text {
+  padding: 10px;
+}
+
+#tableBola h2,
+.team-bola-container h2 {
+  color: #999;
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.table-responsive {
+  border-radius: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  #tableBola h2,
+  .team-bola-container h2 {
+    font-size: 24px;
+  }
+}
